@@ -46,7 +46,14 @@ services:
       - key: VODAFONE_CASH_NUMBER
         sync: false
       - key: AI_PROVIDER
-        value: mock
+        value: ollama
+      - key: AI_BASE_URL
+        value: https://ollama.com/v1
+      - key: AI_MODEL
+        value: minimax-m3
+      # ---- Get this from ollama.com account settings ----
+      - key: AI_API_KEY
+        sync: false
 
   - type: web
     name: yk9-frontend
