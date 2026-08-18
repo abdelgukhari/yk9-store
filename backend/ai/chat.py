@@ -133,18 +133,17 @@ def _match_terms(query_tokens, hay_tokens):
     return hits
 
 
-def _retrieve_products(query, limit=4, max_inject=12):
-    """Find real, purchasable products for a (possibly colloquial) query.
+def _retrieve_products(query, limit=4):
+    """Find real, purchasable products actually relevant to the query
+    (normalized Arabic / dialect term overlap, see _match_terms).
 
-    When the catalog is small the whole product list is returned so the model
-    can answer any question correctly; otherwise it's scored by normalized
-    Arabic / dialect term overlap (see _match_terms).
+    Returns [] when the query isn't product-related, so the chat widget
+    only shows product suggestion chips when the customer actually asked
+    about products — not on every unrelated message.
     """
     products = _active_products()
     if not products:
         return []
-    if len(products) <= max_inject:
-        return products
     terms = _tokenize(query)
     if not terms:
         return []
