@@ -35,6 +35,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -79,6 +80,8 @@ else:
             "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "yk9"),
             "HOST": os.environ.get("POSTGRES_HOST", "localhost"),
             "PORT": os.environ.get("POSTGRES_PORT", "5432"),
+            "OPTIONS": {"sslmode": os.environ.get("POSTGRES_SSLMODE", "prefer")},
+            "CONN_MAX_AGE": int(os.environ.get("POSTGRES_CONN_MAX_AGE", "60")),
         }
     }
 
@@ -124,6 +127,10 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = os.environ.get("DJANGO_STATIC_ROOT", BASE_DIR / "staticfiles")
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
+}
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.environ.get("DJANGO_MEDIA_ROOT", BASE_DIR / "media")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

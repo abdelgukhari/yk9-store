@@ -1,0 +1,62 @@
+services:
+  - type: web
+    name: yk9-backend
+    runtime: docker
+    dockerfilePath: ./docker/Dockerfile.backend
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_ALLOWED_HOSTS
+        value: ".onrender.com"
+      - key: DB_ENGINE
+        value: postgresql
+      # ---- Fill these in from your Neon project's connection details ----
+      # Neon gives you one connection string like:
+      #   postgresql://USER:PASSWORD@HOST/DBNAME?sslmode=require
+      # Split it into the pieces below (use the *pooled* connection host if offered).
+      - key: POSTGRES_DB
+        sync: false
+      - key: POSTGRES_USER
+        sync: false
+      - key: POSTGRES_PASSWORD
+        sync: false
+      - key: POSTGRES_HOST
+        sync: false
+      - key: POSTGRES_PORT
+        value: "5432"
+      - key: POSTGRES_SSLMODE
+        value: require
+      # ---- Cross-service ----
+      - key: CORS_ALLOWED_ORIGINS
+        fromService:
+          type: web
+          name: yk9-frontend
+          envVarKey: RENDER_EXTERNAL_URL
+      # ---- Store-specific (fill in real values) ----
+      - key: SEED_ADMIN_EMAIL
+        value: admin@yk9.com
+      - key: SEED_ADMIN_PASSWORD
+        generateValue: true
+      - key: WHATSAPP_NUMBER
+        sync: false
+      - key: VODAFONE_CASH_NUMBER
+        sync: false
+      - key: AI_PROVIDER
+        value: mock
+
+  - type: web
+    name: yk9-frontend
+    runtime: docker
+    dockerfilePath: ./docker/Dockerfile.frontend
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: BACKEND_URL
+        fromService:
+          type: web
+          name: yk9-backend
+          envVarKey: RENDER_EXTERNAL_URL
