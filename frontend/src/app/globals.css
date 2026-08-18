@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-base: #0a0a0b;
+  --color-bg-card: #121214;
+  --color-bg-raised: #1a1a1e;
+  --color-gold: #d4af37;
+  --color-gold-light: #f2d98d;
+  --color-gold-dark: #a07d1f;
+  --color-electric: #1e90ff;
+  --color-electric-light: #5aa9ff;
+  --color-text: #ffffff;
+  --color-muted: #9ca3af;
+  --color-line: #2a2a30;
+  --color-danger: #ef4444;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+
+  --font-cairo: var(--font-cairo), sans-serif;
+  --font-space: var(--font-space-grotesk), monospace;
+
+  --radius-card: 1rem;
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+body {
+  background-color: var(--color-bg-base);
+  color: var(--color-text);
+  font-family: var(--font-cairo), sans-serif;
+}
+
+/* Hide scrollbars on horizontal snap rows (mobile) */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Subtle brand glow helpers */
+.glow-gold {
+  box-shadow: 0 0 24px rgba(212, 175, 55, 0.22);
+}
+.glow-blue {
+  box-shadow: 0 0 24px rgba(30, 144, 255, 0.2);
+}
+
+/* Premium product card with illuminated border */
+.card-premium {
+  background: linear-gradient(180deg, var(--color-bg-raised), var(--color-bg-card));
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.card-premium:hover {
+  border-color: rgba(212, 175, 55, 0.55);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.12);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(120deg, var(--color-gold-light), var(--color-gold), var(--color-gold-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
