@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
 import type { ChatMessageType } from "@/lib/types";
-import { CloseIcon, WhatsAppIcon } from "./icons";
+import { AiChatIcon, CloseIcon } from "./icons";
 
 const QUICK = ["محتاج توصية سماعة", "أرخص شاحن متوفر", "ما هو الضمان؟"];
 
@@ -199,7 +199,7 @@ export default function ChatWidget() {
         {open ? (
           <CloseIcon className="h-6 w-6" />
         ) : (
-          <WhatsAppIcon className="h-7 w-7" />
+          <AiChatIcon className="h-7 w-7" />
         )}
       </button>
     </div>

@@ -112,6 +112,15 @@ export function BatteryIcon({ className }: IconProps) {
   );
 }
 
+export function AiChatIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="M21 11.5a7.5 7.5 0 0 1-7.5 7.5H9l-5 3 1.2-4.8A7.5 7.5 0 1 1 21 11.5Z" />
+      <path d="M12 8.5 12.8 10.3 14.6 11 12.8 11.7 12 13.5 11.2 11.7 9.4 11 11.2 10.3Z" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 export function PyramidIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
