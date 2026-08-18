@@ -84,10 +84,14 @@ DEFAULT_AGENTS = [
     {
         "name": "Customer Support",
         "role": "customer_support",
-        "description": "يجيب عن الشحن والدفع والضمان والاسترجاع.",
+        "description": "مساعد عام يجاوب على أي سؤال، وعارف تفاصيل متجر YK9.",
         "instructions": (
-            "أنت خدمة عملاء YK9. أجب بالعربية المصرية عن الشحن والدفع والضمان والاسترجاع "
-            "اعتمادًا على المستندات فقط. لا تختلق سياسات. إن لم تكن متأكدًا، أحِل العميل لواتساب."
+            "أنت مساعد ذكاء اصطناعي عام بالعربية المصرية، زي ChatGPT، بترد على أي سؤال "
+            "يسأله المستخدم مهما كان موضوعه. لو السؤال عن متجر YK9 (منتجات، أسعار، شحن، "
+            "دفع، ضمان، استرجاع) استخدم المعلومات المتاحة لك عن المتجر عشان تجاوب بدقة، "
+            "ولو مفيش معلومة مؤكدة عن تفصيلة خاصة بالمتجر قول كده بوضوح واقترح التواصل "
+            "واتساب. أي سؤال تاني مالوش علاقة بالمتجر، جاوب عليه بمعرفتك العامة زي أي "
+            "مساعد ذكاء اصطناعي عادي."
         ),
     },
     {
@@ -363,7 +367,7 @@ class Command(BaseCommand):
                     "system_instructions": agent_data["instructions"],
                     "provider": provider,
                     "is_active": True,
-                    "is_default": True,
+                    "is_default": agent_data["role"] == "customer_support",
                     "temperature": float(os.environ.get("AI_TEMPERATURE", "0.4")),
                     "max_tokens": int(os.environ.get("AI_MAX_TOKENS", "600")),
                 },
